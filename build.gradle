@@ -2,6 +2,7 @@ plugins {
     id "org.embulk.embulk-plugins" version "0.5.5"
     id "java"
     id "com.diffplug.spotless" version "6.13.0"
+    id "com.palantir.git-version" version "0.13.0"
 }
 
 repositories {
@@ -11,7 +12,15 @@ configurations {
     provided
 }
 
-version = "0.1.0"
+version = {
+    def vd = versionDetails()
+    if (vd.commitDistance == 0 && vd.lastTag ==~ /^[0-9]+\.[0-9]+\.[0-9]+(\.[a-zA-Z0-9]+)?/) {
+        vd.lastTag
+    } else {
+        "0.0.0.${vd.gitHash}.pre"
+    }
+}()
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

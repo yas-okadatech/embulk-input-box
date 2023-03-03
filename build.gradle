@@ -1,13 +1,11 @@
 plugins {
-    id "com.jfrog.bintray" version "1.1"
-    id "com.github.jruby-gradle.base" version "0.1.5"
+    id "org.embulk.embulk-plugins" version "0.5.5"
     id "java"
     id "checkstyle"
 }
-import com.github.jrubygradle.JRubyExec
+
 repositories {
     mavenCentral()
-    jcenter()
 }
 configurations {
     provided
@@ -19,9 +17,12 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile  "org.embulk:embulk-core:0.8.39"
-    provided "org.embulk:embulk-core:0.8.39"
-    // compile "YOUR_JAR_DEPENDENCY_GROUP:YOUR_JAR_DEPENDENCY_MODULE:YOUR_JAR_DEPENDENCY_VERSION"
+    def embulkVersion = "0.10.42"
+    compileOnly "org.embulk:embulk-api:${embulkVersion}"
+    compileOnly "org.embulk:embulk-spi:${embulkVersion}"
+
+    compile "org.embulk:embulk-util-file:0.1.3"
+    compile "org.embulk:embulk-util-config:0.3.2"
     compile 'com.box:box-java-sdk:2.48.0'
     testCompile "junit:junit:4.+"
 }
@@ -48,6 +49,11 @@ checkstyleTest {
 task checkstyle(type: Checkstyle) {
     classpath = sourceSets.main.output + sourceSets.test.output
     source = sourceSets.main.allJava + sourceSets.test.allJava
+
+embulkPlugin {
+    mainClass = "org.embulk.input.box.BoxInputPlugin"
+    category = "input"
+    type = "box"
 }
 
 task gem(type: JRubyExec, dependsOn: ["gemspec", "classpath"]) {

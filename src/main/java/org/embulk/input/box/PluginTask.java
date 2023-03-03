@@ -1,26 +1,18 @@
 package org.embulk.input.box;
 
-import com.google.common.base.Optional;
-import org.embulk.config.Config;
-import org.embulk.config.ConfigDefault;
-import org.embulk.config.ConfigInject;
-import org.embulk.config.Task;
-import org.embulk.spi.BufferAllocator;
+import java.util.Optional;
+import org.embulk.util.config.Config;
+import org.embulk.util.config.ConfigDefault;
+import org.embulk.util.config.Task;
 
-public interface PluginTask
-        extends Task
-{
-    // configuration option 1 (required integer)
-    @Config("json_config")
-    String getJsonConfig();
+public interface PluginTask extends Task {
+  @Config("json_config")
+  String getJsonConfig();
 
-    @Config("folder_id")
-    String getFolderId();
+  @Config("folder_id")
+  String getFolderId();
 
-    @Config("file_prefix")
-    @ConfigDefault("null")
-    Optional<String> getFilePrefix();
-
-    @ConfigInject
-    BufferAllocator getBufferAllocator();
+  @Config("file_prefix")
+  @ConfigDefault("null")
+  Optional<String> getFilePrefix();
 }

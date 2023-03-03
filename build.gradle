@@ -28,7 +28,7 @@ dependencies {
 }
 
 embulkPlugin {
-    mainClass = "org.embulk.input.box.BoxInputPlugin"
+    mainClass = "org.embulk.input.box.BoxFileInputPlugin"
     category = "input"
     type = "box"
 }

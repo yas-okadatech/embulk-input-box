@@ -4,28 +4,24 @@ TODO: Write short description here and build.gradle file.
 
 ## Overview
 
-* **Plugin type**: file input
-* **Resume supported**: yes
-* **Cleanup supported**: yes
+- **Plugin type**: file input
+- **Resume supported**: yes
+- **Cleanup supported**: yes
 
 ## Configuration
 
-- **option1**: description (integer, required)
-- **option2**: description (string, default: `"myvalue"`)
-- **option3**: description (string, default: `null`)
-
-## Example
-
-```yaml
-in:
-  type: box
-  option1: example1
-  option2: example2
-```
-
+- **json_config**: JSON formatted OAuth 2.0 with JWT app configuration. (string, required)
+- **folder_id**: target folder id (string, required)
+- **path_prefix**: prefix of target files (string, required)
 
 ## Build
 
 ```
 $ ./gradlew gem  # -t to watch change of files and rebuild continuously
+```
+
+## Run
+
+```
+$ embulk run -I build/gemContents/lib/ config.yml
 ```

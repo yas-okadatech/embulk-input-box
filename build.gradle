@@ -32,7 +32,7 @@ dependencies {
 
     compile "org.embulk:embulk-util-file:0.1.3"
     compile "org.embulk:embulk-util-config:0.3.2"
-    compile 'com.box:box-java-sdk:2.48.0'
+    compile 'com.box:box-java-sdk:4.0.0'
     testCompile "junit:junit:4.+"
 }
 

@@ -10,7 +10,11 @@ TODO: Write short description here and build.gradle file.
 
 ## Configuration
 
-- **json_config**: JSON formatted OAuth 2.0 with JWT app configuration. (string, required)
+- **auth_method**: name of mechanism to authenticate requests(jwt or oauth. default: jwt)
+  - "jwt": JWT Auth. see: https://developer.box.com/guides/authentication/jwt/
+    - **json_config**: JSON formatted OAuth 2.0 with JWT app configuration. (string, required)
+  - "oauth_2_0": OAuth 2.0 Auth. see: https://developer.box.com/guides/authentication/oauth2/
+    - **access_token**: credentials used to represent the authenticated user. (string, required)
 - **folder_id**: target folder id (string, required)
 - **path_prefix**: prefix of target files (string, required)
 

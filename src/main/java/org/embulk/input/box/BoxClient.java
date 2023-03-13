@@ -61,7 +61,7 @@ public class BoxClient {
   public InputStream download(BoxFile.Info info) {
     BoxFile boxFile = info.getResource();
     URL url =
-        boxFile.CONTENT_URL_TEMPLATE.build(
+        BoxFile.CONTENT_URL_TEMPLATE.build(
             boxFile.getAPI().getBaseURL(), new Object[] {boxFile.getID()});
     BoxAPIRequest request = new BoxAPIRequest(boxFile.getAPI(), url, "GET");
     BoxAPIResponse response = request.send();

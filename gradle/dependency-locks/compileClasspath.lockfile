@@ -1,11 +1,7 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-com.box:box-java-sdk:2.48.0
-com.eclipsesource.minimal-json:minimal-json:0.9.1
-org.bitbucket.b_c:jose4j:0.5.5
-org.bouncycastle:bcpkix-jdk15on:1.60
-org.bouncycastle:bcprov-jdk15on:1.60
+com.box:box-java-sdk:4.0.0
 org.embulk:embulk-api:0.10.42
 org.embulk:embulk-spi:0.10.42
 org.embulk:embulk-util-config:0.3.2

@@ -1,5 +1,6 @@
 package org.embulk.input.box;
 
+import com.box.sdk.BoxAPIConnection;
 import com.box.sdk.BoxAPIRequest;
 import com.box.sdk.BoxAPIResponse;
 import com.box.sdk.BoxConfig;
@@ -19,16 +20,23 @@ import org.slf4j.LoggerFactory;
 
 public class BoxClient {
   private final Logger logger = LoggerFactory.getLogger(BoxClient.class);
-  private BoxDeveloperEditionAPIConnection client;
+  private BoxAPIConnection client;
   private PluginTask pluginTask;
 
   public BoxClient(PluginTask pluginTask) {
     try {
-      BoxConfig config = BoxConfig.readFrom(new StringReader(pluginTask.getJsonConfig()));
-      logger.info(config.getClientId());
-      client = BoxDeveloperEditionAPIConnection.getAppEnterpriseConnection(config);
+      String authMethod = pluginTask.getAuthMeString();
+      if (authMethod.equals("oauth_2_0")) {
+        client = new BoxAPIConnection(pluginTask.getAccessToken().get());
+        logger.info("OAuth 2.0 authorization.");
+      } else if (authMethod.equals("jwt")) {
+        BoxConfig config = BoxConfig.readFrom(new StringReader(pluginTask.getJsonConfig().get()));
+        client = BoxDeveloperEditionAPIConnection.getAppEnterpriseConnection(config);
+        logger.info("JWT authorization.");
+      } else {
+        throw new ConfigException("auth_method: " + authMethod + " is not allowd");
+      }
       this.pluginTask = pluginTask;
-      logger.info("JWT authorization.");
     } catch (IOException e) {
       logger.error(e.getMessage(), e);
       throw new ConfigException(e);
